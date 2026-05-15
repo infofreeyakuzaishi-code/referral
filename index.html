@@ -3,44 +3,189 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ご縁マッチング検索</title>
+    <title>ご縁マッチング | Connection Search</title>
     <style>
-        body { font-family: 'Helvetica Neue', Arial, sans-serif; padding: 20px; text-align: center; color: #333; background-color: #f4f7f6; }
-        .container { max-width: 450px; margin: 0 auto; background: white; padding: 40px 20px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
-        h2 { color: #2c3e50; font-size: 1.4em; margin-bottom: 10px; }
-        p { font-size: 0.9em; color: #666; line-height: 1.6; }
-        .search-box { margin: 25px 0; }
-        input { width: 85%; padding: 15px; border: 2px solid #eee; border-radius: 10px; font-size: 16px; outline: none; transition: border 0.3s; }
-        input:focus { border-color: #007bff; }
-        button { background: #007bff; color: white; border: none; padding: 15px 30px; border-radius: 10px; cursor: pointer; font-size: 16px; font-weight: bold; width: 90%; margin-top: 10px; }
-        #result { margin-top: 30px; padding: 20px; border-top: 1px solid #eee; display: none; animation: fadeIn 0.5s; }
-        .count-highlight { font-size: 1.8em; color: #e74c3c; font-weight: bold; display: block; margin: 10px 0; }
-        .tag-info { background: #f8f9fa; padding: 10px; border-radius: 8px; font-size: 0.85em; color: #555; }
-        .cta-button { display: inline-block; background: #27ae60; color: white; text-decoration: none; padding: 18px 30px; border-radius: 10px; font-weight: bold; margin-top: 20px; width: 80%; }
-        .loading { display: none; margin: 20px 0; color: #007bff; font-weight: bold; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        :root {
+            --primary-color: #2563eb;
+            --accent-color: #f59e0b;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #1e293b;
+            --text-sub: #64748b;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 400px;
+            background: var(--card-bg);
+            padding: 40px 24px;
+            border-radius: 24px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            text-align: center;
+        }
+
+        .header-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+            display: inline-block;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin: 0 0 8px 0;
+            letter-spacing: -0.025em;
+        }
+
+        .description {
+            font-size: 0.875rem;
+            color: var(--text-sub);
+            line-height: 1.6;
+            margin-bottom: 32px;
+        }
+
+        .search-box {
+            position: relative;
+            margin-bottom: 24px;
+        }
+
+        input {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 16px 20px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 16px;
+            transition: all 0.2s;
+            outline: none;
+            background: #f1f5f9;
+        }
+
+        input:focus {
+            border-color: var(--primary-color);
+            background: #fff;
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+        }
+
+        button {
+            width: 100%;
+            padding: 16px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.2s, background 0.2s;
+        }
+
+        button:active {
+            transform: scale(0.98);
+            background: #1d4ed8;
+        }
+
+        #result {
+            display: none;
+            margin-top: 32px;
+            padding-top: 32px;
+            border-top: 1px dashed #e2e8f0;
+            animation: slideUp 0.4s ease-out;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .result-label {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--text-sub);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .count-wrap {
+            margin: 16px 0;
+        }
+
+        .count-number {
+            font-size: 3rem;
+            font-weight: 900;
+            color: var(--primary-color);
+            line-height: 1;
+        }
+
+        .count-unit {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-left: 4px;
+        }
+
+        .cta-button {
+            display: block;
+            background: #10b981;
+            color: white;
+            text-decoration: none;
+            padding: 16px;
+            border-radius: 12px;
+            font-weight: 700;
+            margin-top: 24px;
+            box-shadow: 0 4px 6px -1px rgba(16, 185, 129, 0.2);
+            transition: background 0.2s;
+        }
+
+        .cta-button:hover {
+            background: #059669;
+        }
+
+        .loading {
+            display: none;
+            margin-top: 20px;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h2>🤝 ご縁マッチング検索</h2>
-        <p>私の人脈リスト（2020年〜）から、<br>あなたのお力になれそうな情報を検索します。</p>
+        <div class="header-icon">🤝</div>
+        <h2>ご縁マッチング検索</h2>
+        <p class="description">
+            私の人脈ネットワーク（2020年〜）から、<br>
+            あなたのお力になれそうな候補を照合します。
+        </p>
         
         <div class="search-box">
-            <input type="text" id="keyword" placeholder="例：東京, エンジニア, ゴルフ">
-            <button onclick="searchConnections()">検索を実行する</button>
+            <input type="text" id="keyword" placeholder="キーワードを入力（例：東京, エンジニア）">
+            <button onclick="searchConnections()" style="margin-top: 12px;">照合を開始する</button>
         </div>
         
-        <div id="loading" class="loading">データベースを照合中...</div>
+        <div id="loading" class="loading">データベースにアクセス中...</div>
 
         <div id="result">
-            <p>検索の結果、</p>
-            <span id="result-message" class="count-highlight"></span>
-            <p>の候補が見つかりました！</p>
-            <div id="tag-area" class="tag-info"></div>
-            
-            <p style="margin-top:25px; font-weight:bold;">ぜひ一緒にご縁を広げていきましょう！</p>
-            <a href="YOUR_SCHEDULE_TOOL_URL" class="cta-button">こちらから日程調整</a>
+            <div class="result-label">Matches Found</div>
+            <div class="count-wrap">
+                <span id="result-count" class="count-number">0</span>
+                <span class="count-unit">件</span>
+            </div>
+            <p style="font-weight: 600; font-size: 0.95rem;">
+                ぜひ一緒にご縁を広げていきましょう！
+            </p>
+            <a href="YOUR_SCHEDULE_TOOL_URL" class="cta-button">日程調整へ進む</a>
         </div>
     </div>
 
@@ -49,10 +194,11 @@
             const q = document.getElementById('keyword').value;
             const loading = document.getElementById('loading');
             const resultDiv = document.getElementById('result');
+            const countDisplay = document.getElementById('result-count');
             
             if(!q) return alert("キーワードを入力してください");
 
-            // GASのデプロイ後に発行されるウェブアプリURLをここに貼り付け
+            // GASのウェブアプリURLをここに貼り付け
             const apiUrl = 'https://script.google.com/macros/s/AKfycbyoOUKQyNxdz17cbD0igPBZ1QcLwdgziR2_ZwBM_OHj3PEw4p5FAv4lwQvyzFnEuZYa/exec'; 
 
             loading.style.display = 'block';
@@ -63,23 +209,11 @@
             .then(data => {
                 loading.style.display = 'none';
                 resultDiv.style.display = 'block';
-                
-                const msg = document.getElementById('result-message');
-                const tagArea = document.getElementById('tag-area');
-                
-                // 案Aの反映：人数ではなく「ご縁候補」と「件」という表現
-                msg.innerText = `ご紹介可能な「ご縁」候補： 約 ${data.count} 件`;
-                
-                if(data.tags.length > 0) {
-                    tagArea.style.display = 'block';
-                    tagArea.innerText = `（関連キーワード：${data.tags.join(', ')} など）`;
-                } else {
-                    tagArea.style.display = 'none';
-                }
+                countDisplay.innerText = data.count;
             })
             .catch(err => {
                 loading.style.display = 'none';
-                alert("検索に失敗しました。URLの設定を確認してください。");
+                alert("通信エラーが発生しました。");
                 console.error(err);
             });
         }
