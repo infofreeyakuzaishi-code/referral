@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ご縁マッチング検索</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; text-align: center; color: #333; }
+        .container { max-width: 500px; margin: 0 auto; background: #f9f9f9; padding: 30px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        input { width: 80%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 5px; font-size: 16px; }
+        button { background: #007bff; color: white; border: none; padding: 12px 25px; border-radius: 5px; cursor: pointer; font-size: 16px; }
+        #result { margin-top: 25px; padding: 20px; background: white; border-radius: 10px; display: none; }
+        .cta-button { background: #e74c3c; margin-top: 15px; display: inline-block; text-decoration: none; color: white; padding: 15px 25px; border-radius: 5px; font-weight: bold; }
+        .loading { display: none; color: #666; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>🤝 ご縁マッチング検索</h2>
+        <p>私がお繋ぎできる可能性がある方を検索します。<br><small>※個人情報は表示されません</small></p>
+        
+        <input type="text" id="keyword" placeholder="例：東京, エンジニア, ゴルフ">
+        <button onclick="searchConnections()">検索する</button>
+        
+        <div id="loading" class="loading">検索中...</div>
+
+        <div id="result">
+            <h3 id="result-message" style="color: #2c3e50;"></h3>
+            <p id="result-tags" style="color: #7f8c8d; font-size: 0.9em;"></p>
+            <hr>
+            <p>ぜひ一緒にご縁を広げていきましょう！</p>
+            <a href="YOUR_SCHEDULE_TOOL_URL" class="cta-button">こちらから日程調整</a>
+        </div>
+    </div>
+
+    <script>
+        function searchConnections() {
+            const q = document.getElementById('keyword').value;
+            const loading = document.getElementById('loading');
+            const resultDiv = document.getElementById('result');
+            
+            if(!q) return alert("キーワードを入力してください");
+
+            // GASのウェブアプリURLをここに貼り付け
+            const apiUrl = 'https://script.google.com/macros/s/AKfycbyoOUKQyNxdz17cbD0igPBZ1QcLwdgziR2_ZwBM_OHj3PEw4p5FAv4lwQvyzFnEuZYa/exec'; 
+
+            loading.style.display = 'block';
+            resultDiv.style.display = 'none';
+
+            // GASはリダイレクトを伴うため fetch の第2引数に設定が必要な場合がある
+            fetch(`${apiUrl}?q=${encodeURIComponent(q)}`)
+            .then(res => res.json())
+            .then(data => {
+                loading.style.display = 'none';
+                resultDiv.style.display = 'block';
+                
+                const msg = document.getElementById('result-message');
+                const tags = document.getElementById('result-tags');
+                
+                msg.innerText = `ご紹介できる可能性： 【 ${data.count} 名 】`;
+                tags.innerText = data.tags.length > 0 ? `（主な属性：${data.tags.join(', ')} など）` : "";
+            })
+            .catch(err => {
+                loading.style.display = 'none';
+                alert("検索に失敗しました。URLの設定を確認してください。");
+                console.error(err);
+            });
+        }
+    </script>
+</body>
+</html>
