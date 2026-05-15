@@ -6,12 +6,13 @@
     <title>ご縁マッチング | Connection Search</title>
     <style>
         :root {
-            --primary-color: #2563eb;
-            --accent-color: #f59e0b;
+            --primary-color: #2563eb; /* 信頼のブルー */
+            --cta-color: #10b981;    /* 安心のグリーン */
             --bg-color: #f8fafc;
             --card-bg: #ffffff;
             --text-main: #1e293b;
             --text-sub: #64748b;
+            --accent-red: #e11d48;
         }
 
         body {
@@ -23,51 +24,52 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
         }
 
         .container {
             width: 90%;
-            max-width: 400px;
+            max-width: 420px;
             background: var(--card-bg);
-            padding: 40px 24px;
-            border-radius: 24px;
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            padding: 48px 32px;
+            border-radius: 28px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.08);
             text-align: center;
         }
 
         .header-icon {
-            font-size: 48px;
-            margin-bottom: 16px;
+            font-size: 52px;
+            margin-bottom: 20px;
             display: inline-block;
         }
 
         h2 {
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             font-weight: 800;
-            margin: 0 0 8px 0;
-            letter-spacing: -0.025em;
+            margin: 0 0 12px 0;
+            letter-spacing: -0.02em;
+            color: var(--text-main);
         }
 
         .description {
-            font-size: 0.875rem;
+            font-size: 0.95rem;
             color: var(--text-sub);
-            line-height: 1.6;
-            margin-bottom: 32px;
+            line-height: 1.7;
+            margin-bottom: 36px;
         }
 
         .search-box {
-            position: relative;
-            margin-bottom: 24px;
+            margin-bottom: 28px;
         }
 
         input {
             width: 100%;
             box-sizing: border-box;
-            padding: 16px 20px;
+            padding: 18px 22px;
             border: 2px solid #e2e8f0;
-            border-radius: 12px;
+            border-radius: 14px;
             font-size: 16px;
-            transition: all 0.2s;
+            transition: all 0.3s;
             outline: none;
             background: #f1f5f9;
         }
@@ -78,84 +80,96 @@
             box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
         }
 
-        button {
+        .search-btn {
             width: 100%;
-            padding: 16px;
+            padding: 18px;
             background: var(--primary-color);
             color: white;
             border: none;
-            border-radius: 12px;
-            font-size: 1rem;
+            border-radius: 14px;
+            font-size: 1.1rem;
             font-weight: 700;
             cursor: pointer;
-            transition: transform 0.2s, background 0.2s;
+            transition: all 0.2s;
+            margin-top: 12px;
         }
 
-        button:active {
-            transform: scale(0.98);
+        .search-btn:active {
+            transform: scale(0.97);
             background: #1d4ed8;
         }
 
         #result {
             display: none;
-            margin-top: 32px;
-            padding-top: 32px;
-            border-top: 1px dashed #e2e8f0;
-            animation: slideUp 0.4s ease-out;
+            margin-top: 36px;
+            padding-top: 36px;
+            border-top: 1px dashed #cbd5e1;
+            animation: fadeInSlide 0.5s ease-out;
         }
 
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(20px); }
+        @keyframes fadeInSlide {
+            from { opacity: 0; transform: translateY(15px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
         .result-label {
-            font-size: 0.875rem;
-            font-weight: 600;
-            color: var(--text-sub);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        .count-wrap {
-            margin: 16px 0;
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 8px;
         }
 
         .count-number {
-            font-size: 3rem;
+            font-size: 3.5rem;
             font-weight: 900;
-            color: var(--primary-color);
+            color: var(--accent-red);
             line-height: 1;
+            display: inline-block;
+            margin: 12px 0;
         }
 
         .count-unit {
-            font-size: 1.25rem;
-            font-weight: 700;
+            font-size: 1.4rem;
+            font-weight: 800;
             color: var(--text-main);
-            margin-left: 4px;
+            margin-left: 6px;
+        }
+
+        .note {
+            font-size: 0.8rem;
+            color: var(--text-sub);
+            margin-bottom: 24px;
+        }
+
+        .cta-message {
+            font-weight: 700;
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
         }
 
         .cta-button {
             display: block;
-            background: #10b981;
+            background: var(--cta-color);
             color: white;
             text-decoration: none;
-            padding: 16px;
-            border-radius: 12px;
-            font-weight: 700;
-            margin-top: 24px;
-            box-shadow: 0 4px 6px -1px rgba(16, 185, 129, 0.2);
-            transition: background 0.2s;
+            padding: 18px;
+            border-radius: 14px;
+            font-weight: 800;
+            font-size: 1.1rem;
+            box-shadow: 0 10px 15px -3px rgba(16, 185, 129, 0.3);
+            transition: all 0.2s;
         }
 
-        .cta-button:hover {
-            background: #059669;
+        .cta-button:active {
+            transform: translateY(2px);
+            box-shadow: 0 4px 6px -1px rgba(16, 185, 129, 0.2);
         }
 
         .loading {
             display: none;
-            margin-top: 20px;
-            font-weight: 600;
+            margin-top: 24px;
+            font-weight: 700;
             color: var(--primary-color);
         }
     </style>
@@ -166,26 +180,31 @@
         <h2>ご縁マッチング検索</h2>
         <p class="description">
             私の人脈ネットワーク（2020年〜）から、<br>
-            あなたのお力になれそうな候補を照合します。
+            あなたのお力になれそうな情報を照合します。
         </p>
         
         <div class="search-box">
-            <input type="text" id="keyword" placeholder="キーワードを入力（例：東京, エンジニア）">
-            <button onclick="searchConnections()" style="margin-top: 12px;">照合を開始する</button>
+            <input type="text" id="keyword" placeholder="例：東京, エンジニア, 美容">
+            <button onclick="searchConnections()" class="search-btn">照合を開始する</button>
         </div>
         
-        <div id="loading" class="loading">データベースにアクセス中...</div>
+        <div id="loading" class="loading">データベースを照合中...</div>
 
         <div id="result">
-            <div class="result-label">Matches Found</div>
+            <div class="result-label">あなたへご紹介可能な「ご縁」候補：</div>
             <div class="count-wrap">
+                <span>約</span>
                 <span id="result-count" class="count-number">0</span>
-                <span class="count-unit">件</span>
+                <span class="count-unit">件ございます</span>
             </div>
-            <p style="font-weight: 600; font-size: 0.95rem;">
-                ぜひ一緒にご縁を広げていきましょう！
-            </p>
-            <a href="YOUR_SCHEDULE_TOOL_URL" class="cta-button">日程調整へ進む</a>
+            <p class="note">（※複数のプロジェクトやコミュニティを含む延べ数です）</p>
+            
+            <div class="cta-message">
+                ぜひ一緒にご縁を広げていきましょう！<br>
+                よかったら１ON１の日程調整をお願いします。
+            </div>
+            
+            <a href="YOUR_SCHEDULE_TOOL_URL" class="cta-button">日程調整ページへ</a>
         </div>
     </div>
 
