@@ -6,13 +6,13 @@
     <title>ご縁マッチング | Connection Search</title>
     <style>
         :root {
-            --primary-color: #2563eb; /* 信頼のブルー */
-            --cta-color: #10b981;    /* 安心のグリーン */
-            --bg-color: #f8fafc;
+            --primary-color: #2563eb;
+            --cta-color: #10b981;
+            --bg-color: #f1f5f9;
             --card-bg: #ffffff;
             --text-main: #1e293b;
             --text-sub: #64748b;
-            --accent-red: #e11d48;
+            --accent-red: #ef4444;
         }
 
         body {
@@ -32,13 +32,13 @@
             max-width: 420px;
             background: var(--card-bg);
             padding: 48px 32px;
-            border-radius: 28px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.08);
+            border-radius: 32px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.1);
             text-align: center;
         }
 
         .header-icon {
-            font-size: 52px;
+            font-size: 56px;
             margin-bottom: 20px;
             display: inline-block;
         }
@@ -48,7 +48,6 @@
             font-weight: 800;
             margin: 0 0 12px 0;
             letter-spacing: -0.02em;
-            color: var(--text-main);
         }
 
         .description {
@@ -59,7 +58,7 @@
         }
 
         .search-box {
-            margin-bottom: 28px;
+            margin-bottom: 24px;
         }
 
         input {
@@ -67,11 +66,11 @@
             box-sizing: border-box;
             padding: 18px 22px;
             border: 2px solid #e2e8f0;
-            border-radius: 14px;
+            border-radius: 16px;
             font-size: 16px;
             transition: all 0.3s;
             outline: none;
-            background: #f1f5f9;
+            background: #f8fafc;
         }
 
         input:focus {
@@ -86,17 +85,16 @@
             background: var(--primary-color);
             color: white;
             border: none;
-            border-radius: 14px;
+            border-radius: 16px;
             font-size: 1.1rem;
             font-weight: 700;
             cursor: pointer;
             transition: all 0.2s;
-            margin-top: 12px;
+            margin-top: 14px;
         }
 
         .search-btn:active {
             transform: scale(0.97);
-            background: #1d4ed8;
         }
 
         #result {
@@ -104,48 +102,36 @@
             margin-top: 36px;
             padding-top: 36px;
             border-top: 1px dashed #cbd5e1;
-            animation: fadeInSlide 0.5s ease-out;
+            animation: fadeIn 0.6s ease-out;
         }
 
-        @keyframes fadeInSlide {
-            from { opacity: 0; transform: translateY(15px); }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        .result-label {
-            font-size: 1rem;
-            font-weight: 700;
+        .result-text {
+            font-size: 1.05rem;
+            font-weight: 600;
+            line-height: 1.8;
             color: var(--text-main);
-            margin-bottom: 8px;
         }
 
         .count-number {
-            font-size: 3.5rem;
+            font-size: 3.8rem;
             font-weight: 900;
             color: var(--accent-red);
             line-height: 1;
-            display: inline-block;
-            margin: 12px 0;
-        }
-
-        .count-unit {
-            font-size: 1.4rem;
-            font-weight: 800;
-            color: var(--text-main);
-            margin-left: 6px;
-        }
-
-        .note {
-            font-size: 0.8rem;
-            color: var(--text-sub);
-            margin-bottom: 24px;
+            display: block;
+            margin: 16px 0;
         }
 
         .cta-message {
             font-weight: 700;
             font-size: 1rem;
             line-height: 1.6;
-            margin-bottom: 20px;
+            margin: 24px 0;
+            color: var(--text-main);
         }
 
         .cta-button {
@@ -153,17 +139,16 @@
             background: var(--cta-color);
             color: white;
             text-decoration: none;
-            padding: 18px;
-            border-radius: 14px;
+            padding: 20px;
+            border-radius: 16px;
             font-weight: 800;
-            font-size: 1.1rem;
+            font-size: 1.15rem;
             box-shadow: 0 10px 15px -3px rgba(16, 185, 129, 0.3);
             transition: all 0.2s;
         }
 
         .cta-button:active {
             transform: translateY(2px);
-            box-shadow: 0 4px 6px -1px rgba(16, 185, 129, 0.2);
         }
 
         .loading {
@@ -171,40 +156,43 @@
             margin-top: 24px;
             font-weight: 700;
             color: var(--primary-color);
+            letter-spacing: 0.1em;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="header-icon">🤝</div>
+        <div class="header-icon">💎</div>
         <h2>ご縁マッチング検索</h2>
         <p class="description">
             私の人脈ネットワーク（2020年〜）から、<br>
-            あなたのお力になれそうな情報を照合します。
+            あなたに最適な候補をリアルタイムで照合します。
         </p>
         
         <div class="search-box">
-            <input type="text" id="keyword" placeholder="例：東京, エンジニア, 美容">
+            <input type="text" id="keyword" placeholder="例：職業・都道府県・趣味・性格（誠実, 明るい）など">
             <button onclick="searchConnections()" class="search-btn">照合を開始する</button>
         </div>
         
-        <div id="loading" class="loading">データベースを照合中...</div>
+        <div id="loading" class="loading">TAKARAMONO LIST 照合中...</div>
 
         <div id="result">
-            <div class="result-label">あなたへご紹介可能な「ご縁」候補：</div>
-            <div class="count-wrap">
-                <span>約</span>
-                <span id="result-count" class="count-number">0</span>
-                <span class="count-unit">件ございます</span>
+            <div class="result-text">
+                私の人脈の宝物リストから<br>キーワード検索で
             </div>
-            <p class="note">（※複数のプロジェクトやコミュニティを含む延べ数です）</p>
+            
+            <span id="result-count" class="count-number">0</span>
+            
+            <div class="result-text" style="margin-bottom: 24px;">
+                個 該当がありました。
+            </div>
             
             <div class="cta-message">
-                ぜひ一緒にご縁を広げていきましょう！<br>
-                よかったら１ON１の日程調整をお願いします。
+                より感度の高いご紹介のためにも、<br>
+                1on1の日程調整をお願いします。
             </div>
             
-            <a href="YOUR_SCHEDULE_TOOL_URL" class="cta-button">日程調整ページへ</a>
+            <a href="YOUR_SCHEDULE_TOOL_URL" class="cta-button">1on1の日程を調整する</a>
         </div>
     </div>
 
