@@ -13,6 +13,11 @@
             --text-main: #1e293b;
             --text-sub: #64748b;
             --accent-red: #ef4444;
+            
+            /* 追加SNS・連絡先用カラー */
+            --line-color: #06c755;
+            --insta-color: #e1306c;
+            --mail-color: #475569;
         }
 
         body {
@@ -24,6 +29,8 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
+            padding: 20px 0;
+            box-sizing: border-box;
             -webkit-font-smoothing: antialiased;
         }
 
@@ -35,6 +42,7 @@
             border-radius: 32px;
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.1);
             text-align: center;
+            box-sizing: border-box;
         }
 
         .header-icon {
@@ -58,7 +66,7 @@
         }
 
         .search-box {
-            margin-bottom: 24px;
+            margin-bottom: 32px;
         }
 
         input {
@@ -97,6 +105,55 @@
             transform: scale(0.97);
         }
 
+        /* 外部リンク・SNSボタンセクション */
+        .links-section {
+            margin-top: 32px;
+            padding-top: 24px;
+            border-top: 1px solid #e2e8f0;
+            text-align: left;
+        }
+
+        .links-title {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--text-sub);
+            margin-bottom: 12px;
+            text-align: center;
+            letter-spacing: 0.05em;
+        }
+
+        .link-card {
+            display: flex;
+            align-items: center;
+            padding: 14px 18px;
+            margin-bottom: 10px;
+            border-radius: 14px;
+            text-decoration: none;
+            color: var(--text-main);
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .link-card:active {
+            transform: scale(0.98);
+            background: #f1f5f9;
+        }
+
+        .link-card .icon {
+            font-size: 1.25rem;
+            margin-right: 12px;
+            width: 24px;
+            text-align: center;
+        }
+
+        .link-card.line { border-left: 4px solid var(--line-color); }
+        .link-card.insta { border-left: 4px solid var(--insta-color); }
+        .link-card.mail { border-left: 4px solid var(--mail-color); }
+
+        /* 検索結果エリア */
         #result {
             display: none;
             margin-top: 36px;
@@ -165,12 +222,12 @@
         <div class="header-icon">💎</div>
         <h2>ご縁マッチング検索</h2>
         <p class="description">
-            私の人脈ネットワーク（2020年〜）から、<br>
+            薬剤師ろぎーの人脈ネットワーク（2020年〜）から、<br>
             あなたに最適な候補をリアルタイムで照合します。
         </p>
         
         <div class="search-box">
-            <input type="text" id="keyword" placeholder="例：職業・都道府県・趣味・性格（誠実, 明るい）など">
+            <input type="text" id="keyword" placeholder="例：誠実, 明るい, エンジニア">
             <button onclick="searchConnections()" class="search-btn">照合を開始する</button>
         </div>
         
@@ -192,8 +249,25 @@
                 1on1の日程調整をお願いします。
             </div>
             
-            <a href="https://infofreeyakuzaishi-code.github.io/schedule/reservation.html" class="cta-button">1on1の日程を調整する</a>
+            <a href="YOUR_SCHEDULE_TOOL_URL" class="cta-button">1on1の日程を調整する</a>
         </div>
+
+        <div class="links-section">
+            <div class="links-title">CONTACT & SNS</div>
+            
+            <a href="https://lin.ee/ZFVvxed" class="link-card line" target="_blank">
+                <span class="icon">💬</span> お薬・サプリの相談（公式LINEへ）
+            </a>
+            
+            <a href="https://www.instagram.com/yakuzaishi.loggy/" class="link-card insta" target="_blank">
+                <span class="icon">📸</span> Instagramを見る
+            </a>
+            
+            <a href="mailto:info.freeyakuzaishi@gmail.com" class="link-card mail">
+                <span class="icon">✉️</span> お問い合わせ（メールを開く）
+            </a>
+        </div>
+
     </div>
 
     <script>
