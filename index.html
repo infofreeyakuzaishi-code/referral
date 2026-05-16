@@ -14,7 +14,7 @@
             --text-sub: #64748b;
             --accent-red: #ef4444;
             
-            /* 追加SNS・連絡先用カラー */
+            /* SNS・連絡先用カラー */
             --line-color: #06c755;
             --insta-color: #e1306c;
             --mail-color: #475569;
@@ -222,7 +222,7 @@
         <div class="header-icon">💎</div>
         <h2>ご縁マッチング検索</h2>
         <p class="description">
-            薬剤師ろぎーの人脈ネットワーク（2020年〜）から、<br>
+            私の人脈ネットワーク（2020年〜）から、<br>
             あなたに最適な候補をリアルタイムで照合します。
         </p>
         
@@ -244,7 +244,7 @@
                 個 該当がありました。
             </div>
             
-            <div class="cta-message">
+            <div id="cta-message-text" class="cta-message">
                 より感度の高いご紹介のためにも、<br>
                 1on1の日程調整をお願いします。
             </div>
@@ -276,11 +276,12 @@
             const loading = document.getElementById('loading');
             const resultDiv = document.getElementById('result');
             const countDisplay = document.getElementById('result-count');
+            const ctaMessage = document.getElementById('cta-message-text');
             
             if(!q) return alert("キーワードを入力してください");
 
             // GASのウェブアプリURLをここに貼り付け
-            const apiUrl = 'https://script.google.com/macros/s/AKfycbyoOUKQyNxdz17cbD0igPBZ1QcLwdgziR2_ZwBM_OHj3PEw4p5FAv4lwQvyzFnEuZYa/exec'; 
+            const apiUrl = 'YOUR_GAS_WEB_APP_URL'; 
 
             loading.style.display = 'block';
             resultDiv.style.display = 'none';
@@ -291,6 +292,13 @@
                 loading.style.display = 'none';
                 resultDiv.style.display = 'block';
                 countDisplay.innerText = data.count;
+                
+                // 0件かそれ以上かでメッセージを条件分岐
+                if (data.count === 0) {
+                    ctaMessage.innerHTML = `より簡単なキーワードでお試しいただくか、<br>より感度の高いご紹介のためにも、<br>1on1の日程調整をお願いします。`;
+                } else {
+                    ctaMessage.innerHTML = `より感度の高いご紹介のためにも、<br>1on1の日程調整をお願いします。`;
+                }
             })
             .catch(err => {
                 loading.style.display = 'none';
